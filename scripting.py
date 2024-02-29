@@ -56,7 +56,7 @@ Nmesh[0] = N0
 for t in range(10):
     Nmesh[t+1] = r*Nmesh[t] # All happens elementwise on the array xmesh
 
-plt.plot(tmesh,Nmesh,':', label='$N_t$')
+plt.plot(tmesh,Nmesh,'.', label='$N_t$')
 plt.legend() # Create a legend using the label entered in the plot command
 plt.title('Plot of $N_t$')
 plt.xlabel('t')
