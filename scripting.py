@@ -45,18 +45,21 @@ while not done_flag:
 
 
 # Now let's do an example where we plot something based on user input
-print('Plotting B + Asin(wt).')
-B = float(input('B: '))
-A = float(input('A: '))
-w = float(input('w: '))
+print('Plot N_t+1 = rN_t')
+r = float(input('r: '))
+N0 = float(input('N0: '))
 
-xmesh = np.linspace(-10,10,200) # Use linspace to quickly get an evenly spaced
-                                 #   mesh of values.
-ymesh = B + A*np.sin(xmesh) # All happens elementwise on the array xmesh
+tmesh = np.arange(11) # produces a numpy array with range-like syntax
+Nmesh = np.zeros(11) # preallocate space for solution
+Nmesh[0] = N0
 
-plt.plot(xmesh,ymesh,label='sine')
+for t in range(10):
+    Nmesh[t+1] = r*Nmesh[t] # All happens elementwise on the array xmesh
+
+plt.plot(tmesh,Nmesh,':', label='$N_t$')
 plt.legend() # Create a legend using the label entered in the plot command
-plt.title('Plot of sine')
+plt.title('Plot of $N_t$')
 plt.xlabel('t')
+plt.ylabel('N_t')
 plt.show() # This must be there to show the plot and stop the program while
            #    you examine it.
