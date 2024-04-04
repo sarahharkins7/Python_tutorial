@@ -4,7 +4,7 @@ This module provides an example of object oriented programming
 
 import numpy as np
 
-class calendar:
+class Calendar:
 
     def __init__(self, yr=1, mth=1, day=1):
         '''
@@ -65,7 +65,7 @@ class calendar:
 
 
 
-class cal_plus(calendar):
+class CalPlus(Calendar):
     '''Builds on the calendar example above, demonstrating inheritance'''
 
     def __init__(self, yr=1, mth=1, day=1):
