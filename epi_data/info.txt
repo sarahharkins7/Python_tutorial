@@ -1,0 +1,4 @@
+mortality_data.csv contains data on the number of mortalities per day (mu*I).
+vaccated_data.csv contains estimates on the number of people with active vaccinations every five days.
+The first row of both files is the day, where day zero is the start of the epidemic.
+The second row is the data.
