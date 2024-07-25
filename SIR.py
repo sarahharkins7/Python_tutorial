@@ -12,18 +12,21 @@ tpts = np.linspace(0,100,1001)
 #initial values as population fractions
 I0 = 1e-2
 R0 = 0
+E0 = 0
 
 # parameter values
 params = {}
 params['beta'] = 1.4247
 params['gamma'] = 0.14286
 params['mu'] = 0.01
+params['nu'] = 0.2
+
 
 
 ##################################
 
 # vectorize initial conditions
-x0 = np.array([1-I0-R0, I0, R0])
+x0 = np.array([1-I0-R0-E0, E0, I0, R0])
 
 # define ode equations
 def SIR_ODEs(t,x,params):
@@ -36,12 +39,13 @@ def SIR_ODEs(t,x,params):
     It must be passed into the solver using the set_f_params method
     '''
 
-    S = x[0]; I = x[1]; R = x[2]
-    dx = np.zeros(3)
+    S = x[0]; E = x[1];  I = x[2]; R = x[3]
+    dx = np.zeros(4)
 
-    dx[0] = -params['beta']*S*I + params['mu']*(I+R)
-    dx[1] = params['beta']*S*I - params['gamma']*I - params['mu']*I
-    dx[2] = params['gamma']*I - params['mu']*R
+    dx[0] = -params['beta']*S*I + params['mu']*(E+I+R)
+    dx[1] = params['beta']*S*I - params['nu']*E - params['mu']*E
+    dx[2] = params['nu']*E  - params['gamma']*I - params['mu']*I
+    dx[3] = params['gamma']*I - params['mu']*R
 
     return dx
 
@@ -51,9 +55,9 @@ sol = solve_ivp(SIR_ODEs, t_span=[tpts[0], tpts[-1]], y0=x0, t_eval=tpts,
 
 ##### Plot result #####
 fig = plt.figure(figsize=(9,7))
-plt.plot(sol.t,sol.y[0,:],sol.t,sol.y[1,:],sol.t,sol.y[2,:])
-plt.legend(['S','I','R'])
-plt.title("Plot of $S,I,R$ vs. time")
+plt.plot(sol.t,sol.y[0,:],sol.t,sol.y[1,:],sol.t,sol.y[2,:], sol.t, sol.y[3,:])
+plt.legend(['S','E', 'I','R'])
+plt.title("Plot of $S,E,I,R$ vs. time")
 plt.xlabel("$t$")
 plt.ylabel("population fraction")
 plt.show()

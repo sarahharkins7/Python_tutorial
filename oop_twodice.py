@@ -11,7 +11,7 @@ class TwoDice:
             self.y = d2
         else:
             self.y = np.random.randint(1,7)
-        self._target_number = np.random.randint(1,12)
+        self._target_number = np.random.randint(2,13)
 
     def __str__(self):
         return 'The dice are {} and {}.'.format(self.x,self.y)

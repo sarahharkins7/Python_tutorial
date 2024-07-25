@@ -1,0 +1,72 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+# x = np.linspace(-math.pi, math.pi, 100)
+# a = 2
+# b = 3
+# omega = math.pi
+
+# y = a + b * np.sin(omega * x)
+
+# plt.title("a+bsin($\omega$x)")
+# plt.xlabel("x")
+# plt.ylabel("f(x)")
+# plt.plot(x,y)
+# plt.show()
+
+
+def func(a, b, omega):
+    x = np.linspace(-math.pi, math.pi, 100)
+    y = a + b * np.sin(omega * x)
+
+    plt.title(f"a+bsin($\omega$x)")
+    plt.xlabel("x")
+    plt.ylabel("f(x)")
+    plt.plot(x,y)
+    #plt.show()
+
+
+A = np.array([i for i in range(5)])
+B = np.array([i for i in range(1,6)])
+Omega = np.array([i for i in range(5)])
+
+#Third bullet 
+def individual_plots(A_array, B_array, Omega_array):
+    for i in range(len(A)):
+        a = A_array[i]
+        b = B_array[i]
+        omega = Omega_array[i]
+        func(a, b, omega)
+        plt.show()
+
+#Fourth bulet 
+def same_plot(A_array, B_array, Omega_array):
+    for i in range(len(A_array)):
+        a = A_array[i]
+        b = B_array[i]
+        omega = Omega_array[i]
+        func(a, b, omega)
+    plt.show()
+
+#same_plot(A, B, Omega)
+
+
+#Fifth bullet 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("A", type=float, help="Translation.")
+parser.add_argument("B", type=float, help="Amplitude dilation.")
+parser.add_argument("Omega", type=float, help="Period shift parameter.")
+parser.add_argument("-n", action = "store_true", help = "true: same plot ; false (default): individual plots")
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    if args.n is True:
+        individual_plots(args.A, args.B, args.Omega)
+    else:
+        same_plot(args.A, args.B, args.Omega)
+
+
+
